@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMediaQuery, useTheme } from "@material-ui/core";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Navbar from "./componets/Navbar";
+import MyDrawer from "./MyDrawer";
+import DailyRoutine from "./pages/DailyRoutine";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import SelfImprovement from "./pages/SelfImprovement";
 
 function App() {
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div style={{ display: "flex" }}>
+        <CssBaseline />
+        {isSmall ? <></> : <MyDrawer></MyDrawer>}
+        <div style={{ width: "100%" }}>
+          <Navbar />
+          <Switch>
+            <Route exact path="/">
+              <DailyRoutine />
+            </Route>
+            <Route exact path="/selfimprovement">
+              <SelfImprovement />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
